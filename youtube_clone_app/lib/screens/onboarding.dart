@@ -13,26 +13,45 @@ class _OnBoardingState extends State<OnBoarding> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.video_camera_back_outlined),
-        title: const Text("Youtube"),
+        backgroundColor: Colors.white,
+        leading: const Icon(
+          Icons.video_camera_back_outlined,
+          color: Colors.black,
+        ),
+        title: const Text(
+          "Youtube",
+          style: TextStyle(color: Colors.black),
+        ),
         centerTitle: false,
         elevation: 0,
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.cast),
+            icon: Icon(
+              Icons.cast,
+              color: Colors.black,
+            ),
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.notifications_none_outlined),
+            icon: Icon(
+              Icons.notifications_none_outlined,
+              color: Colors.black,
+            ),
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.search_sharp),
+            icon: Icon(
+              Icons.search_sharp,
+              color: Colors.black,
+            ),
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.person_outline),
+            icon: Icon(
+              Icons.person_outline,
+              color: Colors.black,
+            ),
           ),
         ],
       ),

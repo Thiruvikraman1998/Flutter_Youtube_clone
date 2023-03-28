@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:youtube_clone_app/screens/bottombar.dart';
 import 'package:youtube_clone_app/screens/onboarding.dart';
 
 void main(List<String> args) {
@@ -18,7 +19,7 @@ class _YoutubeCloneState extends State<YoutubeClone> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: OnBoarding(),
+      home: BottomBarView(),
     );
   }
 }
