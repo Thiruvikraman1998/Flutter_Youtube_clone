@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:youtube_clone_app/screens/onboarding.dart';
 
 void main(List<String> args) {
   runApp(const YoutubeClone());
@@ -15,6 +16,9 @@ class YoutubeClone extends StatefulWidget {
 class _YoutubeCloneState extends State<YoutubeClone> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: OnBoarding(),
+    );
   }
 }
