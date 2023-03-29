@@ -2,6 +2,7 @@ import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_clone_app/widgets/topics.dart';
+import 'package:youtube_clone_app/widgets/video_card_widget.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -80,17 +81,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   child: Row(
                     children: [
                       Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        margin: const EdgeInsets.only(right: 2, left: 5),
+                        padding: EdgeInsets.only(left: 5, right: 5),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             color: Colors.grey[200]),
-                        height: 30,
-                        width: 30,
-                        child: Icon(Icons.menu),
+                        height: 40,
+                        width: 40,
+                        child: Center(
+                          child: Icon(Icons.menu),
+                        ),
                       ),
-                      Row(
-                        children:
-                            topics.map((e) => TopicsView(topics: e)).toList(),
+                      Container(
+                        margin: EdgeInsets.only(left: 5, right: 5),
+                        child: Row(
+                          children:
+                              topics.map((e) => TopicsView(topics: e)).toList(),
+                        ),
                       ),
                       Text(
                         "Send feedback",
@@ -99,9 +106,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
+          VideoCardView(),
+          VideoCardView(),
+          VideoCardView(),
+          VideoCardView(),
         ],
       ),
     );

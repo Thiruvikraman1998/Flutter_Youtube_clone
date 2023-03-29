@@ -8,11 +8,11 @@ class TopicsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5),
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5), color: Colors.grey[200]),
-      height: 30,
+      height: 40,
       child: Center(
         child: Text(topics),
       ),
