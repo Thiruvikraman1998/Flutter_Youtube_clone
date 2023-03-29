@@ -67,11 +67,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: bodyCards.length,
-        itemBuilder: (context, index) {
-          return bodyCards[index];
-        },
+      body: ListView(
+        children: [
+          TopicsScroller(),
+          ListView.builder(
+            itemCount: bodyCards.length,
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return bodyCards[index];
+            },
+          ),
+        ],
       ),
     );
   }
