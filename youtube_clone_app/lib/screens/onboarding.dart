@@ -1,7 +1,9 @@
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 import 'package:youtube_clone_app/widgets/topics.dart';
+import 'package:youtube_clone_app/widgets/topics_container.dart';
 import 'package:youtube_clone_app/widgets/video_card_widget.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -14,17 +16,12 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
-    final List topics = [
-      "All",
-      "Flutter",
-      "Computer Science",
-      "Sitcoms",
-      "Live",
-      "Scene",
-      "Game Shows",
-      "Gadgets",
-      "Recently uploaded",
-      "New to you"
+    final List<Widget> bodyCards = [
+      VideoCardView(),
+      VideoCardView(),
+      VideoCardView(),
+      VideoCardView(),
+      VideoCardView()
     ];
     return Scaffold(
       appBar: AppBar(
@@ -70,50 +67,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          Column(
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(right: 2, left: 5),
-                        padding: EdgeInsets.only(left: 5, right: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.grey[200]),
-                        height: 40,
-                        width: 40,
-                        child: Center(
-                          child: Icon(Icons.menu),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 5, right: 5),
-                        child: Row(
-                          children:
-                              topics.map((e) => TopicsView(topics: e)).toList(),
-                        ),
-                      ),
-                      Text(
-                        "Send feedback",
-                        style: TextStyle(color: Colors.blue),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          VideoCardView(),
-          VideoCardView(),
-          VideoCardView(),
-          VideoCardView(),
-        ],
+      body: ListView.builder(
+        itemCount: bodyCards.length,
+        itemBuilder: (context, index) {
+          return bodyCards[index];
+        },
       ),
     );
   }

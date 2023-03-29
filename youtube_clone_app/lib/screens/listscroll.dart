@@ -6,7 +6,7 @@ class MyListView extends StatelessWidget {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
-          pinned: true,
+          pinned: false,
           title: Text('My List'),
         ),
         SliverFixedExtentList(
