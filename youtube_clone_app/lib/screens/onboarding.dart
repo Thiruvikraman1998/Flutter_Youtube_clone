@@ -37,17 +37,36 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         centerTitle: false,
         elevation: 0,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.cast,
-              color: Colors.black,
-            ),
+          Stack(
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.notifications_none_outlined,
+                  color: Colors.black,
+                ),
+              ),
+              Positioned(
+                right: 10,
+                top: 7,
+                child: Container(
+                  constraints: BoxConstraints(minHeight: 15, minWidth: 15),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    "10",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+              ),
+            ],
           ),
           IconButton(
             onPressed: () {},
             icon: Icon(
-              Icons.notifications_none_outlined,
+              Icons.cast,
               color: Colors.black,
             ),
           ),

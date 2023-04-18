@@ -15,10 +15,13 @@ class VideoCardView extends StatelessWidget {
             height: 250,
             width: double.infinity,
             decoration: const BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                        "https://i.ytimg.com/vi/qLGZbo_YjqE/mqdefault.jpg"))),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  "https://i.ytimg.com/vi/qLGZbo_YjqE/mqdefault.jpg",
+                ),
+              ),
+            ),
           ),
           Gap(5),
           ListTile(
