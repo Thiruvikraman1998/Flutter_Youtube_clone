@@ -21,77 +21,103 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     final List<Widget> bodyCards = [];
 
     //Video.videoList.map((e) => bodyCards.add(e));
-
+    //Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: Image.network(
-          "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
-          scale: 17,
-        ),
-        title: const Text(
-          "Youtube",
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: false,
-        elevation: 0,
-        actions: [
-          Stack(
-            children: [
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            expandedHeight: 50,
+            bottom: PreferredSize(
+                child: TopicsScroller(), preferredSize: Size.fromHeight(50)),
+            // flexibleSpace: FlexibleSpaceBar(
+            //   background: TopicsScroller(),
+            // ),
+            backgroundColor: Colors.white,
+            leading: Image.network(
+              "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
+              scale: 17,
+            ),
+            title: const Text(
+              "Youtube",
+              style: TextStyle(color: Colors.black),
+            ),
+            centerTitle: false,
+            elevation: 0,
+            actions: [
+              Stack(
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.notifications_none_outlined,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Positioned(
+                    right: 10,
+                    top: 7,
+                    child: Container(
+                      constraints: BoxConstraints(minHeight: 15, minWidth: 15),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: const Text(
+                        "10",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(
-                  Icons.notifications_none_outlined,
+                icon: const Icon(
+                  Icons.cast,
                   color: Colors.black,
                 ),
               ),
-              Positioned(
-                right: 10,
-                top: 7,
-                child: Container(
-                  constraints: BoxConstraints(minHeight: 15, minWidth: 15),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    "10",
-                    style: TextStyle(fontSize: 15),
-                  ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search_sharp,
+                  color: Colors.black,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.person_outline,
+                  color: Colors.black,
                 ),
               ),
             ],
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.cast,
-              color: Colors.black,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.search_sharp,
-              color: Colors.black,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.person_outline,
-              color: Colors.black,
-            ),
-          ),
+          //OnBoardingScreen(),
+          SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return VideoCardView(videoData: Video.videoList[index]);
+            }, childCount: Video.videoList.length),
+          )
+          // ListView(
+          //   children: Video.videoList.map((videoData) {
+          //     return VideoCardView(
+          //       videoData: videoData,
+          //     );
+          //   }).toList(),
+          // ),
         ],
-      ),
-      body: ListView(
-        children: Video.videoList.map((videoData) {
-          return VideoCardView(
-            videoData: videoData,
-          );
-        }).toList(),
       ),
     );
   }
 }
+
+
+// ListView(
+//         children: Video.videoList.map((videoData) {
+//           return VideoCardView(
+//             videoData: videoData,
+//           );
+//         }).toList(),
+//       ),

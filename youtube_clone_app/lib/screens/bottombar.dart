@@ -16,6 +16,7 @@ class _BottomBarViewState extends State<BottomBarView> {
   List<Widget> screens = [];
   @override
   Widget build(BuildContext context) {
+    //Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: OnBoardingScreen(),
       bottomNavigationBar: BottomNavigationBar(
