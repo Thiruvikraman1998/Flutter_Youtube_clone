@@ -85,19 +85,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ),
         ],
       ),
-      // body: ListView.builder(
-      //   itemCount: Video.videoList.length,
-      //   itemBuilder: (context, index) {
-      //     return VideoCardView(
-      //       thumb: Video.videoList[index]["snippet"]["thumbnails"]["medium"]
-      //           ["url"],
-      //       title: '',
-      //       channelName: '',
-      //       viewCount: '',
-      //       datePublished: '',
-      //     );
-      //   },
-      // ),
       body: ListView(
         children: Video.videoList.map((videoData) {
           return VideoCardView(
