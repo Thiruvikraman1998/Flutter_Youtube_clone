@@ -4,21 +4,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:gap/gap.dart';
 
 class VideoCardView extends StatelessWidget {
-  const VideoCardView({super.key});
+  final Map<String, dynamic> videoData;
+  const VideoCardView({super.key, required this.videoData});
 
   @override
   Widget build(BuildContext context) {
+    final formatedDate = videoData[''];
     return Container(
       child: Column(
         children: [
           Container(
             height: 250,
             width: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                  "https://i.ytimg.com/vi/qLGZbo_YjqE/mqdefault.jpg",
+                  videoData["snippet"]["thumbnails"]["medium"]["url"],
                 ),
               ),
             ),
@@ -35,8 +37,8 @@ class VideoCardView extends StatelessWidget {
                 ),
               ),
             ),
-            title: const Text(
-              "Ravanasura Movie Trailer | Mass Maharaja Ravi Teja | Sushanth | Sudheer Varma | Abhishek Nama",
+            title: Text(
+              videoData["snippet"]["title"],
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -45,7 +47,7 @@ class VideoCardView extends StatelessWidget {
             subtitle: Padding(
               padding: EdgeInsets.all(5),
               child: Text(
-                "Abhishek Pictures • Views • Date",
+                "${videoData["snippet"]["channelTitle"]} • ${videoData["statistics"]["viewCount"]}",
                 style: TextStyle(color: Colors.grey[600], fontSize: 14),
               ),
             ),

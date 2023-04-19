@@ -6,6 +6,8 @@ import 'package:youtube_clone_app/widgets/topics.dart';
 import 'package:youtube_clone_app/widgets/topics_container.dart';
 import 'package:youtube_clone_app/widgets/video_card_widget.dart';
 
+import '../models/video_class.dart';
+
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
 
@@ -16,13 +18,10 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
-    final List<Widget> bodyCards = [
-      VideoCardView(),
-      VideoCardView(),
-      VideoCardView(),
-      VideoCardView(),
-      VideoCardView()
-    ];
+    final List<Widget> bodyCards = [];
+
+    //Video.videoList.map((e) => bodyCards.add(e));
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -86,11 +85,25 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: bodyCards.length,
-        itemBuilder: (context, index) {
-          return bodyCards[index];
-        },
+      // body: ListView.builder(
+      //   itemCount: Video.videoList.length,
+      //   itemBuilder: (context, index) {
+      //     return VideoCardView(
+      //       thumb: Video.videoList[index]["snippet"]["thumbnails"]["medium"]
+      //           ["url"],
+      //       title: '',
+      //       channelName: '',
+      //       viewCount: '',
+      //       datePublished: '',
+      //     );
+      //   },
+      // ),
+      body: ListView(
+        children: Video.videoList.map((videoData) {
+          return VideoCardView(
+            videoData: videoData,
+          );
+        }).toList(),
       ),
     );
   }
