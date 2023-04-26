@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_clone_app/screens/listscroll.dart';
 import 'package:youtube_clone_app/screens/onboarding.dart';
+import 'package:youtube_clone_app/screens/toggle.dart';
 
 class BottomBarView extends StatefulWidget {
   const BottomBarView({super.key});
@@ -18,6 +19,7 @@ class _BottomBarViewState extends State<BottomBarView> {
   Widget build(BuildContext context) {
     //Size size = MediaQuery.of(context).size;
     return Scaffold(
+      //body: ToggleViews(),
       body: OnBoardingScreen(),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.black,
