@@ -2,11 +2,10 @@ import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sticky_headers/sticky_headers.dart';
+import 'package:youtube_clone_app/api/videoListapi.dart';
 import 'package:youtube_clone_app/widgets/topics.dart';
 import 'package:youtube_clone_app/widgets/topics_container.dart';
 import 'package:youtube_clone_app/widgets/video_card_widget.dart';
-
-import '../models/video_class.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -16,6 +15,12 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  @override
+  void initState() {
+    super.initState();
+    fetchVideosList();
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> bodyCards = [];
@@ -28,8 +33,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           SliverAppBar(
             floating: true,
             expandedHeight: 50,
-            bottom: PreferredSize(
-                child: TopicsScroller(), preferredSize: Size.fromHeight(50)),
+            bottom: const PreferredSize(
+                preferredSize: Size.fromHeight(50), child: TopicsScroller()),
             // flexibleSpace: FlexibleSpaceBar(
             //   background: TopicsScroller(),
             // ),
@@ -95,10 +100,24 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ],
           ),
           //OnBoardingScreen(),
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return VideoCardView(videoData: Video.videoList[index]);
-            }, childCount: Video.videoList.length),
+          SliverToBoxAdapter(
+            child: FutureBuilder(
+              future: fetchVideosList(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  debugPrint(snapshot.data.toString());
+                  print("Videos fetched");
+                  return VideoCardView(videoData: snapshot.data);
+                } else if (snapshot.hasError) {
+                  return const Center(
+                    child: Text("Api call error"),
+                  );
+                }
+                return const Center(
+                  child: Text("Waiting to load Data..."),
+                );
+              },
+            ),
           )
           // ListView(
           //   children: Video.videoList.map((videoData) {
