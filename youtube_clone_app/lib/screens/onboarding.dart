@@ -15,10 +15,11 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  Future<VideoList>? _fetchVideos;
   @override
   void initState() {
     super.initState();
-    fetchVideosList();
+    _fetchVideos = fetchVideosList();
   }
 
   @override
@@ -102,15 +103,22 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           //OnBoardingScreen(),
           SliverToBoxAdapter(
             child: FutureBuilder(
-              future: fetchVideosList(),
+              future: _fetchVideos,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  debugPrint(snapshot.data.toString());
-                  print("Videos fetched");
-                  return VideoCardView(videoData: snapshot.data);
+                  var items = snapshot.data!.items;
+                  //debugPrint(snapshot.data.toString());
+                  debugPrint(snapshot.data!.items![0].toString());
+                  return ListView.builder(
+                      itemCount: items!.length,
+                      itemBuilder: (context, index) {
+                        return VideoCardView(
+                          items: items[index],
+                        );
+                      });
                 } else if (snapshot.hasError) {
                   return const Center(
-                    child: Text("Api call error"),
+                    child: Text("Videos Fetch error"),
                   );
                 }
                 return const Center(

@@ -2,14 +2,15 @@ import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gap/gap.dart';
+import 'package:youtube_clone_app/api/videoListapi.dart';
 
 class VideoCardView extends StatelessWidget {
-  final Map<String, dynamic> videoData;
-  const VideoCardView({super.key, required this.videoData});
+  final Items items;
+  const VideoCardView({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
-    final formatedDate = videoData[''];
+    //final formatedDate = videoData[''];
     return Container(
       child: Column(
         children: [
@@ -19,9 +20,7 @@ class VideoCardView extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(
-                  videoData["snippet"]["thumbnails"]["medium"]["url"],
-                ),
+                image: NetworkImage(items.snippet!.thumbnails!.medium!.url!),
               ),
             ),
           ),
@@ -38,7 +37,7 @@ class VideoCardView extends StatelessWidget {
               ),
             ),
             title: Text(
-              videoData["snippet"]["title"],
+              items.snippet!.title!,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -47,7 +46,7 @@ class VideoCardView extends StatelessWidget {
             subtitle: Padding(
               padding: EdgeInsets.all(5),
               child: Text(
-                "${videoData["snippet"]["channelTitle"]} • ${videoData["statistics"]["viewCount"]}",
+                "${items.snippet!.channelTitle!} • ${items.statistics!.viewCount!}",
                 style: TextStyle(color: Colors.grey[600], fontSize: 14),
               ),
             ),
