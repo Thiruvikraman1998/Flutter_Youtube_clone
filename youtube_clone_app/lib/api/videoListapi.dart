@@ -5,16 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:youtube_clone_app/api/api_constants.dart';
 
-Future<VideoList> fetchVideosList() async {
-  final response =
-      await http.get(Uri.parse("${Constants.videoListUrl}${Constants.apiKey}"));
+Future<VideoList?> fetchVideosList() async {
+  try {
+    final response = await http
+        .get(Uri.parse("${Constants.videoListUrl}${Constants.apiKey}"));
 
-  if (response.statusCode == 200) {
-    debugPrint("Api called succesfully");
-    //debugPrint(response.body.toString());
-    return VideoList.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception("Cant fetch videos");
+    if (response.statusCode == 200) {
+      debugPrint("Api called succesfully");
+      //debugPrint(response.body.toString());
+      var t = VideoList.fromJson(jsonDecode(response.body));
+      debugPrint("t " + t.toJson().toString());
+      debugPrint(t.etag);
+      return t;
+    } else {
+      debugPrint("Cant fetch videos");
+      return Future(() => null);
+    }
+  } catch (e) {
+    debugPrint(e.toString());
+    return Future(() => null);
   }
 }
 
@@ -34,13 +43,12 @@ class VideoList {
     if (json['items'] != null) {
       items = <Items>[];
       json['items'].forEach((v) {
-        items!.add(new Items.fromJson(v));
+        items!.add(Items.fromJson(v));
       });
     }
     nextPageToken = json['nextPageToken'];
-    pageInfo = json['pageInfo'] != null
-        ? new PageInfo.fromJson(json['pageInfo'])
-        : null;
+    pageInfo =
+        json['pageInfo'] != null ? PageInfo.fromJson(json['pageInfo']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -63,16 +71,17 @@ class Items {
   String? etag;
   String? id;
   Snippet? snippet;
-  ContentDetails? contentDetails;
-  Statistics? statistics;
+  // ContentDetails? contentDetails;
+  // Statistics? statistics;
 
-  Items(
-      {this.kind,
-      this.etag,
-      this.id,
-      this.snippet,
-      this.contentDetails,
-      this.statistics});
+  Items({
+    this.kind,
+    this.etag,
+    this.id,
+    this.snippet,
+    // this.contentDetails,
+    // this.statistics
+  });
 
   Items.fromJson(Map<String, dynamic> json) {
     kind = json['kind'];
@@ -80,12 +89,12 @@ class Items {
     id = json['id'];
     snippet =
         json['snippet'] != null ? new Snippet.fromJson(json['snippet']) : null;
-    contentDetails = json['contentDetails'] != null
-        ? new ContentDetails.fromJson(json['contentDetails'])
-        : null;
-    statistics = json['statistics'] != null
-        ? new Statistics.fromJson(json['statistics'])
-        : null;
+    // contentDetails = json['contentDetails'] != null
+    //     ? new ContentDetails.fromJson(json['contentDetails'])
+    //     : null;
+    // statistics = json['statistics'] != null
+    //     ? new Statistics.fromJson(json['statistics'])
+    //     : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -96,12 +105,12 @@ class Items {
     if (this.snippet != null) {
       data['snippet'] = this.snippet!.toJson();
     }
-    if (this.contentDetails != null) {
-      data['contentDetails'] = this.contentDetails!.toJson();
-    }
-    if (this.statistics != null) {
-      data['statistics'] = this.statistics!.toJson();
-    }
+    // if (this.contentDetails != null) {
+    //   data['contentDetails'] = this.contentDetails!.toJson();
+    // }
+    // if (this.statistics != null) {
+    //   data['statistics'] = this.statistics!.toJson();
+    // }
     return data;
   }
 }
@@ -176,88 +185,53 @@ class Snippet {
 }
 
 class Thumbnails {
-  Medium? medium;
-  High? high;
-  Standard? standard;
+  //Default? default_;
+  Default? medium;
+  // Default? high;
+  // Default? standard;
 
-  Thumbnails({this.medium, this.high, this.standard});
+  Thumbnails({
+    // this.default_,
+    this.medium,
+    // this.high,
+    // this.standard,
+  });
 
   Thumbnails.fromJson(Map<String, dynamic> json) {
-    medium =
-        json['medium'] != null ? new Medium.fromJson(json['medium']) : null;
-    high = json['high'] != null ? new High.fromJson(json['high']) : null;
-    standard = json['standard'] != null
-        ? new Standard.fromJson(json['standard'])
-        : null;
+    // default_ =
+    //     json['default'] != null ? Default.fromJson(json['default']) : null;
+    medium = json['medium'] != null ? Default.fromJson(json['medium']) : null;
+    // high = json['high'] != null ? Default.fromJson(json['high']) : null;
+    // standard =
+    //     json['standard'] != null ? Default.fromJson(json['standard']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    // if (this.default_ != null) {
+    //   data['default'] = this.default_!.toJson();
+    //}
     if (this.medium != null) {
       data['medium'] = this.medium!.toJson();
     }
-    if (this.high != null) {
-      data['high'] = this.high!.toJson();
-    }
-    if (this.standard != null) {
-      data['standard'] = this.standard!.toJson();
-    }
+    // if (this.high != null) {
+    //   data['high'] = this.high!.toJson();
+    // }
+    // if (this.standard != null) {
+    //   data['standard'] = this.standard!.toJson();
+    // }
     return data;
   }
 }
 
-class Medium {
+class Default {
   String? url;
   int? width;
   int? height;
 
-  Medium({this.url, this.width, this.height});
+  Default({this.url, this.width, this.height});
 
-  Medium.fromJson(Map<String, dynamic> json) {
-    url = json['url'];
-    width = json['width'];
-    height = json['height'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['url'] = this.url;
-    data['width'] = this.width;
-    data['height'] = this.height;
-    return data;
-  }
-}
-
-class High {
-  String? url;
-  int? width;
-  int? height;
-
-  High({this.url, this.width, this.height});
-
-  High.fromJson(Map<String, dynamic> json) {
-    url = json['url'];
-    width = json['width'];
-    height = json['height'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['url'] = this.url;
-    data['width'] = this.width;
-    data['height'] = this.height;
-    return data;
-  }
-}
-
-class Standard {
-  String? url;
-  int? width;
-  int? height;
-
-  Standard({this.url, this.width, this.height});
-
-  Standard.fromJson(Map<String, dynamic> json) {
+  Default.fromJson(Map<String, dynamic> json) {
     url = json['url'];
     width = json['width'];
     height = json['height'];

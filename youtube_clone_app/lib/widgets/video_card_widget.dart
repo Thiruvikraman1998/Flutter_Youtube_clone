@@ -37,7 +37,7 @@ class VideoCardView extends StatelessWidget {
               ),
             ),
             title: Text(
-              items.snippet!.title!,
+              "items.snippet!.title!",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -46,7 +46,7 @@ class VideoCardView extends StatelessWidget {
             subtitle: Padding(
               padding: EdgeInsets.all(5),
               child: Text(
-                "${items.snippet!.channelTitle!} • ${items.statistics!.viewCount!}",
+                "{items.snippet!.channelTitle!} • ${"items.statistics!.viewCount!"}",
                 style: TextStyle(color: Colors.grey[600], fontSize: 14),
               ),
             ),

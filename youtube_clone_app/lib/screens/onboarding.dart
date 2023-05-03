@@ -15,7 +15,7 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  Future<VideoList>? _fetchVideos;
+  late Future<VideoList?> _fetchVideos;
   @override
   void initState() {
     super.initState();
@@ -102,28 +102,30 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ),
           //OnBoardingScreen(),
           SliverToBoxAdapter(
-            child: FutureBuilder(
+            child: FutureBuilder<VideoList?>(
               future: _fetchVideos,
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  var items = snapshot.data!.items;
-                  //debugPrint(snapshot.data.toString());
-                  debugPrint(snapshot.data!.items![0].toString());
-                  return ListView.builder(
-                      itemCount: items!.length,
-                      itemBuilder: (context, index) {
-                        return VideoCardView(
-                          items: items[index],
-                        );
-                      });
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CupertinoActivityIndicator();
                 } else if (snapshot.hasError) {
                   return const Center(
                     child: Text("Videos Fetch error"),
                   );
+                } else if (snapshot.hasData) {
+                  var items = snapshot.data!.items;
+                  //debugPrint(snapshot.data.toString());
+                  debugPrint(items![0].toString());
+                  return ListView.builder(
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      return VideoCardView(
+                        items: items[index],
+                      );
+                    },
+                  );
+                  //return Text("data");
                 }
-                return const Center(
-                  child: Text("Waiting to load Data..."),
-                );
+                return const CupertinoActivityIndicator();
               },
             ),
           )
